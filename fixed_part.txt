@@ -1,0 +1,8 @@
+static Uint8List _constructList(
+      Iterable<int> data, int minLength, int maxLength) {
+    if (data.length < minLength || data.length > maxLength) {
+      throw Exception(
+          'The list length (${data.length}) is invalid (min: $minLength, max: $maxLength)');
+    }
+    return Uint8List.fromList(data.toList());
+  }
