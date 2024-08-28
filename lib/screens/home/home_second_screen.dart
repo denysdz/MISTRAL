@@ -1,3 +1,4 @@
+import 'package:elrond/screens/home/transaction_widget.dart';
 import 'package:elrond/screens/password/password_input_screen.dart';
 import 'package:elrond/settings/param.dart';
 import 'package:elrond/settings/st.dart';
@@ -43,6 +44,7 @@ class _HomeSecondScreenState extends State<HomeSecondScreen> {
         appBar: AppBar(),
         body: Consumer<CryptoViewModel>(
           builder: (context, viewModel, child) {
+            if (viewModel.balance == null || viewModel.timer == null) viewModel.startFetching();
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 27.w),
               child: Column(
@@ -240,25 +242,83 @@ class _HomeSecondScreenState extends State<HomeSecondScreen> {
                   ),
                   SizedBox(height: 8.h),
                   Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: const Color(0xFF4A55C1), width: 2),
-                      ),
+                     child: DefaultTabController(
+                      length: 2,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const LogoImage("logo_home"),
-                          SizedBox(height: 15.h),
-                          Text(
-                            "Transactions are not found",
-                            style: ST.my(14, 600, color: const Color(0xFF958A8A)),
+                          Container(
+                            height: 38,
+                            padding: const EdgeInsets.all(2),
+                            margin: const EdgeInsets.only(bottom: 13),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(9.5),
+                            ),
+                            child: TabBar(
+                              labelPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                              indicator: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFF4A55C1), // Start color of the gradient
+                                    Color(0xFF23285B), // End color of the gradient
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                                borderRadius: BorderRadius.circular(9.5), // Rounded corners
+                              ),
+                              labelColor: Colors.white,
+                              unselectedLabelColor: Colors.black, 
+                              tabs: const [
+                                Tab(text: 'Send'),
+                                Tab(text: 'Receive'),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10), // Radius of 10
+                                  border: Border.all(
+                                    color: Color(0xFF4A55C1), // Border color
+                                    width: 1, // Border width
+                                  ),
+                                ),
+                              child: TabBarView(
+                                physics: NeverScrollableScrollPhysics(),
+                                children: [
+                                  TransactionContainer(isSend: true),
+                                  TransactionContainer(isSend: false),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                    ),
+                    )
                   ),
+                  // Expanded(
+                  //   child: Container(
+                  //     padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       border: Border.all(color: const Color(0xFF4A55C1), width: 2),
+                  //     ),
+                  //     child: Column(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         const LogoImage("logo_home"),
+                  //         SizedBox(height: 15.h),
+                  //         Text(
+                  //           "Transactions are not found",
+                  //           style: ST.my(14, 600, color: const Color(0xFF958A8A)),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                
                   SafeArea(
                     child: Padding(
                       padding: EdgeInsets.all(20.h),

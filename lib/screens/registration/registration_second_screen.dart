@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:bip39/bip39.dart' as bip39;
 
 import 'dialog_copy.dart';
 import 'registration_third_screen.dart';
@@ -26,15 +27,12 @@ class RegistrationSecondScreen extends StatefulWidget {
 
 class _RegistrationSecondScreenState extends State<RegistrationSecondScreen> {
   TypeState isCheckBtn = TypeState.none;
-  List<String> listPhrase = [];
+  List<String> listPhrase = bip39.generateMnemonic(strength: 256).split(" ");
 
   @override
   void initState() {
-    final rnd = Random();
-    final UserModel userRnd = AppSetting.LIST_USERS[rnd.nextInt(1)];
-    PARAM.tempUser = userRnd;
     //listPhrase = userRnd.phrase.trim().split(" ");
-    listPhrase = WalletUtils().generateMnemonic().toString().trim().split(" ");
+    //listPhrase = WalletUtils().generateMnemonic().toString().trim().split(" ");
     super.initState();
   }
 

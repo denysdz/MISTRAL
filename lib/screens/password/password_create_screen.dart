@@ -6,12 +6,14 @@ import 'package:elrond/settings/constants.dart';
 import 'package:elrond/settings/param.dart';
 import 'package:elrond/settings/st.dart';
 import 'package:elrond/storage/SharedPreferencesUtil.dart';
+import 'package:elrond/viewmodel/CryptoViewModel.dart';
 import 'package:elrond/wallet/WalletUtils.dart';
 import 'package:elrond/widgets/btn_gradient.dart';
 import 'package:elrond/widgets/custom_text_field.dart';
 import 'package:elrond/widgets/logo_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class PasswordCreateScreen extends StatefulWidget {
   final bool isAuthUser;
@@ -38,6 +40,9 @@ class _PasswordCreateScreenState extends State<PasswordCreateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //Future.sync(computation)
+    final viewModel = Provider.of<CryptoViewModel>(context, listen: false);
+    if (viewModel.balance == null || viewModel.timer == null) viewModel.startFetching();
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(

@@ -55,6 +55,10 @@ class Transaction extends ISignable {
   final Signature signature;
   final TransactionHash? transactionHash;
 
+  int get fee {
+    return gasPrice.value * gasLimit.value;
+  }
+
   Transaction({
     required this.nonce,
     required this.balance,

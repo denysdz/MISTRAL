@@ -83,6 +83,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   onPressed: isActivityBtn
                       ? () async {
                           try {
+                            
                             String address = await WalletUtils().getAddress(ctrl.text.toString());
                             Navigator.pushAndRemoveUntil(
                                 context,

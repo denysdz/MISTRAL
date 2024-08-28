@@ -4,12 +4,14 @@ import 'package:elrond/settings/app_enum.dart';
 import 'package:elrond/settings/constants.dart';
 import 'package:elrond/settings/param.dart';
 import 'package:elrond/settings/st.dart';
+import 'package:elrond/viewmodel/CryptoViewModel.dart';
 import 'package:elrond/widgets/btn_gradient.dart';
 import 'package:elrond/widgets/btn_text.dart';
 import 'package:elrond/widgets/custom_text_field.dart';
 import 'package:elrond/widgets/logo_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import 'dialog_invalid_password.dart';
 
@@ -25,10 +27,25 @@ class _PasswordCreateScreenState extends State<PasswordInputScreen> {
   final ctrlPass = TextEditingController();
   bool isActivityBtn = false;
 
+  late Future<void> _initFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _initFuture = _initialize();
+  }
+
   @override
   void dispose() {
     ctrlPass.dispose();
     super.dispose();
+  }
+
+  Future<void> _initialize() async {
+    final viewModel = Provider.of<CryptoViewModel>(context, listen: false);
+    if (viewModel.balance == null || viewModel.timer == null) {
+      await viewModel.startFetching();
+    }
   }
 
   @override

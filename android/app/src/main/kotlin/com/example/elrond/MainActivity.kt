@@ -1,4 +1,4 @@
-package com.example.elrond
+package com.elrond
 
 import io.flutter.embedding.android.FlutterActivity
 

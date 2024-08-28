@@ -10,13 +10,13 @@ class WalletUtils {
     // Initialize proxy after dio has been initialized
     proxy = ProxyProvider(
       addressRepository: AddressRepository(dio,
-          baseUrl: 'https://testnet-gateway.multiversx.com/'),
+          baseUrl: 'https://gateway.multiversx.com/'),
       networkRepository: NetworkRepository(dio,
-          baseUrl: 'https://testnet-gateway.multiversx.com/'),
+          baseUrl: 'https://gateway.multiversx.com/'),
       transactionRepository: TransactionRepository(dio,
-          baseUrl: 'https://testnet-gateway.multiversx.com/'),
+          baseUrl: 'https://gateway.multiversx.com/'),
       vmValuesRepository: VmValuesRepository(dio,
-          baseUrl: 'https://testnet-gateway.multiversx.com'),
+          baseUrl: 'https://gateway.multiversx.com'),
     );
   }
 
