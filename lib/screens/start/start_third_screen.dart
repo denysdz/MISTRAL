@@ -58,11 +58,11 @@ class StartThirdScreen extends StatelessWidget {
           SizedBox(height: 11.h),
           RichText(
             text: TextSpan(
-              text: "I accept ",
+              text: "",
               style: ST.my(15, 400, height: 1.6),
               children: [
                 TextSpan(
-                  text: "Terms Of Use",
+                  text: "",
                   style: ST.my(15, 600, height: 1.6),
                 ),
               ],

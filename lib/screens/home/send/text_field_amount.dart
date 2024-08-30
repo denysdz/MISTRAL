@@ -12,6 +12,7 @@ class TextFieldAmount extends StatelessWidget {
     this.hintText,
     required this.controller,
   });
+
   final String? title;
   final String? hintText;
   final TextEditingController controller;
@@ -31,30 +32,42 @@ class TextFieldAmount extends StatelessWidget {
           maxLines: 1,
           maxLength: 14,
           textAlign: TextAlign.end,
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          onChanged: (val) => controller.text = val.replaceAll(',', '.'),
+          keyboardType: TextInputType.number, // Changed to simple number type
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+          ], // Allows only numbers and one decimal point
+          onChanged: (val) {
+            // Use a different approach to format or sanitize the input
+            final newText = val.replaceAll(',', '.');
+            if (newText != controller.text) {
+              // Update only if the text is different to prevent cursor jumping
+              controller.value = controller.value.copyWith(
+                text: newText,
+                selection: TextSelection.collapsed(offset: newText.length),
+              );
+            }
+          },
           decoration: InputDecoration(
             isDense: true,
             hintText: hintText,
-            hintStyle:
-                ST.my(15, 500, height: 1, color: const Color(0xFF958A8A)),
+            hintStyle: ST.my(15, 500, height: 1, color: const Color(0xFF958A8A)),
             border: BD_ENABLED,
             focusedBorder: BD_FOCUS,
             enabledBorder: BD_ENABLED,
             errorBorder: BD_ENABLED,
             disabledBorder: BD_ENABLED,
             constraints: BoxConstraints(maxHeight: 55.h),
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+            contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 12.w),
-              child: Image.asset('assets/images/logo_start_third.png',
-                  width: 30.h, height: 30.h),
+              child: Image.asset(
+                'assets/images/logo_start_third.png',
+                width: 30.h,
+                height: 30.h,
+              ),
             ),
           ),
-          buildCounter: (_,
-                  {int? currentLength, int? maxLength, bool? isFocused}) =>
-              null,
+          buildCounter: (_, {int? currentLength, int? maxLength, bool? isFocused}) => null,
         )
       ],
     );

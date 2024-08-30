@@ -1,10 +1,8 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'package:clipboard/clipboard.dart';
 import 'package:elrond/settings/st.dart';
 import 'package:elrond/widgets/btn_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:super_clipboard/super_clipboard.dart';
 
 class TextFieldCode extends StatelessWidget {
   const TextFieldCode({
@@ -33,29 +31,33 @@ class TextFieldCode extends StatelessWidget {
           decoration: InputDecoration(
             isDense: true,
             hintText: hintText,
-            hintStyle:
-                ST.my(15, 500, height: 1, color: const Color(0xFF958A8A)),
+            hintStyle: ST.my(15, 500, height: 1, color: const Color(0xFF958A8A)),
             border: BD_ENABLED,
             focusedBorder: BD_FOCUS,
             enabledBorder: BD_ENABLED,
             errorBorder: BD_ENABLED,
             disabledBorder: BD_ENABLED,
-            // constraints: BoxConstraints(maxHeight: 55.h, minHeight: 50.h),
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
             suffixIconConstraints: BoxConstraints(maxHeight: 15.h),
-            suffixIcon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: BtnText(
-                onPressed: () => FlutterClipboard.paste().then((val) {
-                  controller.text = val;
-                }),
-                style: ST.my(12, 400, height: 1),
-                text: "Paste",
-              ),
-            ),
+            // suffixIcon: Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 15.w),
+            //   child: BtnText(
+            //     onPressed: () async {
+            //       final clipboard = SystemClipboard.instance;
+            //       if (clipboard != null) {
+            //         final reader = await clipboard.read();
+            //         if (reader.canProvide(Formats.plainText)) {
+            //           final text = await reader.readValue(Formats.plainText);
+            //           controller.text = text!;
+            //         }
+            //       }
+            //     },
+            //     style: ST.my(12, 400, height: 1),
+            //     text: "Paste",
+            //   ),
+            // ),
           ),
-        )
+        ),
       ],
     );
   }

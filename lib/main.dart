@@ -1,5 +1,6 @@
 import 'package:elrond/screens/password/password_input_screen.dart';
 import 'package:elrond/screens/splash/splash_screen.dart';
+import 'package:elrond/screens/start/start_third_screen.dart';
 import 'package:elrond/settings/constants.dart';
 import 'package:elrond/settings/param.dart';
 import 'package:elrond/viewmodel/TransactionViewModel.dart';
@@ -77,7 +78,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           AppSetting.sScreenWidth = MediaQuery.of(context).size.width;
 
           return MaterialApp(
-            //key: navigatorKey, // Assign the GlobalKey to MaterialApp
+            key: navigatorKey, // Assign the GlobalKey to MaterialApp
             navigatorKey: navigatorKey,
             title: 'Elrond',
             debugShowCheckedModeBanner: false,
@@ -90,7 +91,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ),
               useMaterial3: false,
             ),
-            home: const SplashScreen(),
+            home: const StartThirdScreen(),
           );
         }),
       ),
